@@ -6,4 +6,8 @@ ACM Research Hour is a weekly session where we explore CS research through readi
 ## Week 1 Contents:  
 - **How to Read a Research Paper**  
 - **LoRA Presentation** (Low-Rank Adaptation of Large Language Models)  
-- **LoRA Implementation in PyTorch** 
+- **LoRA Implementation in PyTorch**
+
+## Week 2 Contents:  
+- **Genie: Generative Interactive Environments Paper**  
+- **Genie Minimial Implementation in PyTorch** 
