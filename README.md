@@ -19,3 +19,9 @@ ACM Research Hour is a weekly session where we explore CS research through readi
 
 - **RT-1: Robotics Transformer For Real-World Control At Scale**
 - **Modified implementation in PyTorch with panda-gym environment**
+
+
+## Week 4 Contents:
+
+- **RLang: A Declarative Language for reinforcement learning environment knowledge**
+- **Q-Learning implementation with knowledge based initialization.**
