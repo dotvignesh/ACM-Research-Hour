@@ -1,0 +1,82 @@
+import "vocab.json"
+
+
+Constant passenger_locs := [[0, 0], [0, 4], [4, 0], [4, 3]]
+Constant destination_locs := [[0, 0], [0, 4], [4, 0], [4, 3]]
+
+Factor taxi_position := S[0, 1]  
+Factor x := taxi_position[0]
+Factor y := taxi_position[1]
+
+Factor passenger_location := S[2]  
+Factor destination := S[3] 
+
+
+Proposition at_passenger := taxi_position in passenger_locs
+Proposition at_destination := taxi_position in destination_locs
+Proposition carrying_passenger := passenger_location == 4
+
+
+Action move_s := 0
+Action move_n := 1
+Action move_e := 2
+Action move_w := 3
+Action pick_up := 4
+Action drop_off := 5
+
+Effect movement_effect:
+    if y == 0 and A == move_n:  # Prevent moving north if at top boundary
+        S' -> S
+    if y == 4 and A == move_s:  # Prevent moving south if at bottom boundary
+        S' -> S
+    if x == 0 and A == move_w:  # Prevent moving west if at left boundary
+        S' -> S
+    if x == 4 and A == move_e:  # Prevent moving east if at right boundary
+        S' -> S
+
+Effect main:
+    if at_passenger and A == pick_up:
+        S'.passenger_location -> 4
+    if carrying_passenger and A == drop_off:
+        if at_destination:
+            Reward 20
+        else:
+            Reward -10
+    elif A == pick_up or A == drop_off:
+        Reward -10
+    else:
+        Reward -2   # The true reward is actually -1, but -2 increases performance
+        -> movement_effect
+
+
+
+Policy taxi_policy:
+    if not carrying_passenger:
+        if at_passenger:
+            Execute pick_up
+        else:
+            if not at_passenger:
+                if x < passenger_x:
+                    Execute move_e
+                elif x > passenger_x:
+                    Execute move_w
+                elif y < passenger_y:
+                    Execute move_n
+                elif y > passenger_y:
+                    Execute move_s
+
+
+    else:
+        if at_destination:
+            Execute drop_off
+        else:
+            if carrying_passenger and not at_destination:
+                if x < destination_x:
+                    Execute move_e
+                elif x > destination_x:
+                    Execute move_w
+                elif y < destination_y:
+                    Execute move_n
+                elif y > destination_y:
+                    Execute move_s
+

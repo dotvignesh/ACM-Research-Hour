@@ -1,0 +1,41 @@
+{
+  "domain": "taxi",
+  "mdp_metadata": {
+    "state_space": {
+      "size": 2,
+      "dtype": "int"
+    },
+    "action_space": {
+      "shape": 1,
+      "dtype": "int"
+    }
+  },
+  "modules": [
+    {
+      "module_name": "grounding",
+      "file_name": "grounding.py"
+    }
+  ],
+  "vocabulary": {
+    "features": [
+      {
+        "name": "passenger_x",
+        "grounding": "grounding.passenger_x"
+      },
+      {
+        "name": "passenger_y",
+        "grounding": "grounding.passenger_y"
+      },
+      {
+        "name": "destination_x",
+        "grounding": "grounding.destination_x"
+      },
+      {
+        "name": "destination_y",
+        "grounding": "grounding.destination_y"
+      }
+    ]
+  }
+}
+
+
